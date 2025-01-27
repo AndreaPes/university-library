@@ -8,6 +8,13 @@
       "when": 1737727192018,
       "tag": "0000_fat_victor_mancha",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1737967688892,
+      "tag": "0001_lethal_havok",
+      "breakpoints": true
     }
   ]
 }
