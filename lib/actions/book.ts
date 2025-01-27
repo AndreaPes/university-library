@@ -12,18 +12,19 @@ export const borrowBook = async (params: BorrowBookParams) => {
     const book = await db
       .select({ availableCopies: books.availableCopies })
       .from(books)
-      .where(eq(books.id, bookId));
+      .where(eq(books.id, bookId))
+      .limit(1);
 
     if (!book.length || book[0].availableCopies <= 0) {
       return {
         success: false,
-        error: "Book not available for borrowing",
+        error: "Book is not available for borrowing",
       };
     }
 
     const dueDate = dayjs().add(7, "day").toDate().toDateString();
 
-    const record = db.insert(borrowRecords).values({
+    const record = await db.insert(borrowRecords).values({
       userId,
       bookId,
       dueDate,
@@ -32,9 +33,7 @@ export const borrowBook = async (params: BorrowBookParams) => {
 
     await db
       .update(books)
-      .set({
-        availableCopies: book[0].availableCopies - 1,
-      })
+      .set({ availableCopies: book[0].availableCopies - 1 })
       .where(eq(books.id, bookId));
 
     return {
@@ -43,6 +42,7 @@ export const borrowBook = async (params: BorrowBookParams) => {
     };
   } catch (error) {
     console.log(error);
+
     return {
       success: false,
       error: "An error occurred while borrowing the book",
