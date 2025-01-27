@@ -15,6 +15,13 @@
       "when": 1737967688892,
       "tag": "0001_lethal_havok",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1738001646214,
+      "tag": "0002_deep_squirrel_girl",
+      "breakpoints": true
     }
   ]
 }
